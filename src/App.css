@@ -1,134 +1,145 @@
+
+:root {
+  --container-max-width: 100%;
+  --border-radius-card: 20px;
+  --border-radius-input: 8px;
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --shadow-header: 0 10px 25px rgba(0, 0, 0, 0.08);
+  --color-border: #eee;
+  --color-input-border: #e0e0e0;
+  --color-quarterly-start: #43a047;
+  --color-quarterly-end: #66bb6a;
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-
 body {
   min-height: 100vh;
-  background: linear-gradient(
-    135deg,
-    #f7f0ff 0%,
-    #fce4ec 50%,
-    #e8f5e9 100%
-  );
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: linear-gradient(135deg, #f7f0ff, #fce4ec, #e8f5e9);
 }
 .container {
-  width: 95%;
-  max-width: 1100px;
-  padding: 40px;
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 .header {
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(15px);
-  border-radius: 25px;
-  padding: 25px;
+  border-radius: var(--border-radius-card);
+  padding: 16px;
 
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
 
-  flex-wrap: wrap; /* FIX CUTTING ISSUE */
-
-  margin-bottom: 35px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-header);
 }
+
 .header h1 {
-  font-size: 2.2rem;
+  font-size: clamp(1rem, 3vw, 1.6rem); /* scales smoothly across screen sizes */
   font-weight: 500;
-  text-align: center;
   flex: 1;
+  text-align: center;
+  white-space: nowrap;
 }
-
 
 .logo {
-  width: 110px;
-  height: 70px;
+  width: clamp(50px, 10vw, 90px);  /* min 50px, scales with viewport, max 90px */
+  height: clamp(30px, 6vw, 55px);
   object-fit: contain;
-  flex-shrink: 0;
 }
-
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #444;
+.section-title {
+  font-size: clamp(1rem, 3.5vw, 1.4rem);
+  font-weight: 600;
+  color: #333;
 }
-
 .card {
   background: white;
-  border-radius: 25px;
-  padding: 30px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius-card);
+  padding: 16px;
+  box-shadow: var(--shadow-card);
 }
-
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;                    
+  -webkit-overflow-scrolling: touch;   
+  border-radius: 10px;
+}
 table {
   width: 100%;
   border-collapse: collapse;
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-thead {
-  background: linear-gradient(90deg, #111, #333);
-  color: white;
+  table-layout: fixed;    /* all 4 columns get equal 25% width */
 }
 
 th {
-  padding: 20px;
-  font-size: 18px;
-}
-
-td {
-  padding: 20px;
+  padding: clamp(8px, 2vw, 14px);
   text-align: center;
-  border: 1px solid #eee;
+  border: 1px solid var(--color-border);
+  font-size: clamp(0.7rem, 2vw, 0.875rem);
+  white-space: nowrap;
+  background: #222;      
+  color: white;
 }
-
-tbody tr:hover {
-  background: #fafafa;
+td {
+  padding: clamp(8px, 2vw, 14px);
+  text-align: center;
+  border: 1px solid var(--color-border);
+  font-size: clamp(0.7rem, 2vw, 0.875rem);
+  white-space: nowrap;
 }
 input {
-  width: 100%;
-  max-width: 140px;
-  padding: 12px;
-  border: 2px solid #e0e0e0;
-  border-radius: 10px;
-  outline: none;
-  font-size: 15px;
+  width: 85%;              
+  max-width: 100%;
+  padding: clamp(4px, 1vw, 8px);
+  border: 2px solid var(--color-input-border);
+  border-radius: var(--border-radius-input);
   text-align: center;
-  transition: 0.3s;
+  font-size: clamp(0.7rem, 2vw, 0.8125rem);
 }
-
-input:focus {
-  border-color: #ec008c;
-  box-shadow: 0 0 10px rgba(236, 0, 140, 0.2);
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
-
-.quarterly {
-  background: linear-gradient(90deg, #43a047, #66bb6a);
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.quarterly td {
+  background: linear-gradient(
+    90deg,
+    var(--color-quarterly-start),
+    var(--color-quarterly-end)
+  );
   color: white;
   font-weight: bold;
-  font-size: 18px;
 }
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .header h1 {
-    font-size: 1.8rem;
-  }
-
-  .logo {
-    width: 80px;
-    height: 50px;
-  }
-
-  th, td {
+@media (max-width: 480px) {
+  .container {
     padding: 12px;
-    font-size: 14px;
+    gap: 12px;
+  }
+
+  .header {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .header h1 {
+    font-size: 1rem;
+    width: 100%;          
+    order: 3;           
+  }
+
+  .card {
+    padding: 10px;
   }
 }
