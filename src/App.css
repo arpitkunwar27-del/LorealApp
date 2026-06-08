@@ -10,6 +10,7 @@
   --color-quarterly-start: #43a047;
   --color-quarterly-end: #66bb6a;
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -45,7 +46,7 @@ body {
 }
 
 .header h1 {
-  font-size: clamp(1rem, 3vw, 1.6rem); /* scales smoothly across screen sizes */
+  font-size: clamp(1rem, 3vw, 1.6rem); 
   font-weight: 500;
   flex: 1;
   text-align: center;
@@ -53,7 +54,7 @@ body {
 }
 
 .logo {
-  width: clamp(50px, 10vw, 90px);  /* min 50px, scales with viewport, max 90px */
+  width: clamp(50px, 10vw, 90px); 
   height: clamp(30px, 6vw, 55px);
   object-fit: contain;
 }
@@ -70,14 +71,14 @@ body {
 }
 .table-wrapper {
   width: 100%;
-  overflow-x: auto;                    
-  -webkit-overflow-scrolling: touch;   
+  overflow-x: auto;                   
+  -webkit-overflow-scrolling: touch;  
   border-radius: 10px;
 }
 table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;    /* all 4 columns get equal 25% width */
+  table-layout: fixed;   
 }
 
 th {
@@ -86,9 +87,10 @@ th {
   border: 1px solid var(--color-border);
   font-size: clamp(0.7rem, 2vw, 0.875rem);
   white-space: nowrap;
-  background: #222;      
+  background: #222;     
   color: white;
 }
+
 td {
   padding: clamp(8px, 2vw, 14px);
   text-align: center;
@@ -97,7 +99,7 @@ td {
   white-space: nowrap;
 }
 input {
-  width: 85%;              
+  width: 85%;            
   max-width: 100%;
   padding: clamp(4px, 1vw, 8px);
   border: 2px solid var(--color-input-border);
@@ -105,6 +107,7 @@ input {
   text-align: center;
   font-size: clamp(0.7rem, 2vw, 0.8125rem);
 }
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -135,11 +138,44 @@ input[type="number"] {
 
   .header h1 {
     font-size: 1rem;
-    width: 100%;          
-    order: 3;           
+    width: 100%;       
+    order: 3;          
   }
 
   .card {
     padding: 10px;
   }
+}
+.company-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.company-input-wrapper label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.company-input {
+  width: 100%;
+  max-width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--color-input-border);
+  border-radius: 10px;
+  font-size: 0.9375rem;
+  color: #333;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.company-input:focus {
+  border-color: var(--color-quarterly-start);
+  box-shadow: 0 0 0 3px rgba(67, 160, 71, 0.15);
+}
+
+.company-input::placeholder {
+  color: #bbb;
 }
