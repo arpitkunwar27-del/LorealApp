@@ -5,6 +5,8 @@ import garnierLogo from "./assets/Garnier.png";
 
 function App() {
   const [companyName, setCompanyName] = useState("");
+  const [dropbox1, setDropbox1] = useState("");
+  const [dropbox2, setDropbox2] = useState("");
 
   const [achievement, setAchievement] = useState({
     april: "",
@@ -17,6 +19,41 @@ function App() {
     may: "",
     june: "",
   });
+
+  const companyGroups = {
+    "CPD-MUM-CENTRAL": [
+      "A G ENTERPRISES",
+      "AG ENTERPRISES",
+      "ARIHANT AGENCIES",
+      "CHHEDA BROTHERS",
+      "KANHAIYA AGENCIES PRIVATE LIMITED",
+      "KESARIYAJEE MARKETING",
+      "LAXMAN TRADERS",
+      "M/S SHREE SWASTIK ENTERPRISES",
+      "MANN ENTERPRISES",
+      "SAI TRADERS",
+      "SHREE AGENCIES",
+      "SHREE SAI ENTERPRISES",
+      "SWASTIK AGENCIES",
+    ],
+    "CPD-MUM-WESTERN": [
+      "KRUPESH ENTERPRISES",
+      "KEYUR SALES",
+      "LIBERTY MARKETING",
+      "SAPHALA CONSUMERS",
+      "SHRADDHA AGENCIES",
+      "SHREE HARI ENTERPRISES",
+      "SIDDHI SALES CORPORATION",
+      "SWASTIK AGENCIES",
+      "TALHA MARKETING",
+      "VIMAL AGENCIES",
+    ],
+  };
+
+  const handleDropbox1Change = (value) => {
+    setDropbox1(value);
+    setDropbox2("");
+  };
 
   const handleAchievementChange = (month, value) => {
     setAchievement((prev) => ({ ...prev, [month]: value }));
@@ -38,42 +75,6 @@ function App() {
 
   const quarterlyBalance = quarterlyTarget - quarterlyAchievement;
 
-  const companyGroups = [
-    {
-      group: "CPD-MUM-CENTRAL",
-      companies: [
-        "A G ENTERPRISES",
-        "AG ENTERPRISES",
-        "ARIHANT AGENCIES",
-        "CHHEDA BROTHERS",
-        "KANHAIYA AGENCIES PRIVATE LIMITED",
-        "KESARIYAJEE MARKETING",
-        "LAXMAN TRADERS",
-        "M/S SHREE SWASTIK ENTERPRISES",
-        "MANN ENTERPRISES",
-        "SAI TRADERS",
-        "SHREE AGENCIES",
-        "SHREE SAI ENTERPRISES",
-        "SWASTIK AGENCIES",
-      ],
-    },
-    {
-      group: "CPD-MUM-WESTERN",
-      companies: [
-        "KRUPESH ENTERPRISES",
-        "KEYUR SALES",
-        "LIBERTY MARKETING",
-        "SAPHALA CONSUMERS",
-        "SHRADDHA AGENCIES",
-        "SHREE HARI ENTERPRISES",
-        "SIDDHI SALES CORPORATION",
-        "SWASTIK AGENCIES",
-        "TALHA MARKETING",
-        "VIMAL AGENCIES",
-      ],
-    },
-  ];
-
   return (
     <div className="container">
       <div className="header">
@@ -84,28 +85,62 @@ function App() {
 
       <h2 className="section-title">Quarterly Performance Tracker</h2>
       <div className="card">
+
+        {/* Mumbai Region Label */}
+        <div className="region-label">Mumbai Region</div>
+
+        {/* Dropbox 1 - Group Selector */}
         <div className="company-input-wrapper">
-          <label htmlFor="companyName">Company Name</label>
-          <select
+          <label htmlFor="dropbox1">Select Group</label>
+          <div className="select-wrapper">
+            <select
+              id="dropbox1"
+              className="company-input"
+              value={dropbox1}
+              onChange={(e) => handleDropbox1Change(e.target.value)}
+            >
+              <option value="">Select group...</option>
+              <option value="CPD-MUM-CENTRAL">CPD-MUM-CENTRAL</option>
+              <option value="CPD-MUM-WESTERN">CPD-MUM-WESTERN</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Dropbox 2 - Company Selector */}
+        <div className="company-input-wrapper">
+          <label htmlFor="dropbox2">Select Company</label>
+          <div className="select-wrapper">
+            <select
+              id="dropbox2"
+              className="company-input"
+              value={dropbox2}
+              onChange={(e) => setDropbox2(e.target.value)}
+              disabled={!dropbox1}
+            >
+              <option value="">
+                {dropbox1 ? "Select company..." : "Select group first..."}
+              </option>
+              {dropbox1 &&
+                companyGroups[dropbox1].map((company) => (
+                  <option key={company} value={company}>
+                    {company}
+                  </option>
+                ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Outlet Name */}
+        <div className="company-input-wrapper">
+          <label htmlFor="companyName">Outlet Name</label>
+          <input
+            type="text"
             id="companyName"
             className="company-input"
             value={companyName}
             onChange={(e) => setCompanyName(e.target.value)}
-          >
-            {/* ✅ Default placeholder option */}
-            <option value="">Select a company...</option>
-
-            {/* ✅ Grouped options by region */}
-            {companyGroups.map(({ group, companies }) => (
-              <optgroup key={group} label={group}>
-                {companies.map((company) => (
-                  <option key={`${group}-${company}`} value={company}>
-                    {company}
-                  </option>
-                ))}
-              </optgroup>
-            ))}
-          </select>
+            placeholder="Enter text..."
+          />
         </div>
 
         <div className="table-wrapper">
@@ -168,4 +203,3 @@ function App() {
 }
 
 export default App;
-
