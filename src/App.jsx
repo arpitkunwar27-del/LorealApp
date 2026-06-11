@@ -38,9 +38,44 @@ function App() {
 
   const quarterlyBalance = quarterlyTarget - quarterlyAchievement;
 
+  const companyGroups = [
+    {
+      group: "CPD-MUM-CENTRAL",
+      companies: [
+        "A G ENTERPRISES",
+        "AG ENTERPRISES",
+        "ARIHANT AGENCIES",
+        "CHHEDA BROTHERS",
+        "KANHAIYA AGENCIES PRIVATE LIMITED",
+        "KESARIYAJEE MARKETING",
+        "LAXMAN TRADERS",
+        "M/S SHREE SWASTIK ENTERPRISES",
+        "MANN ENTERPRISES",
+        "SAI TRADERS",
+        "SHREE AGENCIES",
+        "SHREE SAI ENTERPRISES",
+        "SWASTIK AGENCIES",
+      ],
+    },
+    {
+      group: "CPD-MUM-WESTERN",
+      companies: [
+        "KRUPESH ENTERPRISES",
+        "KEYUR SALES",
+        "LIBERTY MARKETING",
+        "SAPHALA CONSUMERS",
+        "SHRADDHA AGENCIES",
+        "SHREE HARI ENTERPRISES",
+        "SIDDHI SALES CORPORATION",
+        "SWASTIK AGENCIES",
+        "TALHA MARKETING",
+        "VIMAL AGENCIES",
+      ],
+    },
+  ];
+
   return (
     <div className="container">
-      {/* Header */}
       <div className="header">
         <img src={lorealLogo} alt="L'Oréal" className="logo" />
         <h1>L'Oréal & Garnier</h1>
@@ -48,21 +83,29 @@ function App() {
       </div>
 
       <h2 className="section-title">Quarterly Performance Tracker</h2>
-
-      {/* Card with table-wrapper INSIDE */}
       <div className="card">
-
-        {/* Company Name Input */}
         <div className="company-input-wrapper">
           <label htmlFor="companyName">Company Name</label>
-          <input
+          <select
             id="companyName"
-            type="text"
             className="company-input"
-            placeholder="Enter company name..."
             value={companyName}
             onChange={(e) => setCompanyName(e.target.value)}
-          />
+          >
+            {/* ✅ Default placeholder option */}
+            <option value="">Select a company...</option>
+
+            {/* ✅ Grouped options by region */}
+            {companyGroups.map(({ group, companies }) => (
+              <optgroup key={group} label={group}>
+                {companies.map((company) => (
+                  <option key={`${group}-${company}`} value={company}>
+                    {company}
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
         </div>
 
         <div className="table-wrapper">
@@ -104,7 +147,8 @@ function App() {
                   <td>
                     {target[month] === "" && achievement[month] === ""
                       ? ""
-                      : (Number(target[month]) || 0) - (Number(achievement[month]) || 0)}
+                      : (Number(target[month]) || 0) -
+                        (Number(achievement[month]) || 0)}
                   </td>
                 </tr>
               ))}
@@ -124,3 +168,4 @@ function App() {
 }
 
 export default App;
+
