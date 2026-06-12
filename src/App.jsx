@@ -73,7 +73,7 @@ function App() {
     (Number(target.may) || 0) +
     (Number(target.june) || 0);
 
-  const quarterlyBalance = quarterlyTarget - quarterlyAchievement;
+  const quarterlyBalance = quarterlyAchievement - quarterlyTarget; // ✅ Fixed
 
   return (
     <div className="container">
@@ -86,10 +86,8 @@ function App() {
       <h2 className="section-title">Quarterly Performance Tracker</h2>
       <div className="card">
 
-        {/* Mumbai Region Label */}
         <div className="region-label">Mumbai Region</div>
 
-        {/* Dropbox 1 - Group Selector */}
         <div className="company-input-wrapper">
           <label htmlFor="dropbox1">Select Group</label>
           <div className="select-wrapper">
@@ -106,9 +104,8 @@ function App() {
           </div>
         </div>
 
-        {/* Dropbox 2 - Company Selector */}
         <div className="company-input-wrapper">
-          <label htmlFor="dropbox2">Select Company</label>
+          <label htmlFor="dropbox2">Distributor's Name</label>
           <div className="select-wrapper">
             <select
               id="dropbox2"
@@ -130,7 +127,6 @@ function App() {
           </div>
         </div>
 
-        {/* Outlet Name */}
         <div className="company-input-wrapper">
           <label htmlFor="companyName">Outlet Name</label>
           <input
@@ -182,8 +178,8 @@ function App() {
                   <td>
                     {target[month] === "" && achievement[month] === ""
                       ? ""
-                      : (Number(target[month]) || 0) -
-                        (Number(achievement[month]) || 0)}
+                      : (Number(achievement[month]) || 0) -
+                        (Number(target[month]) || 0)} {/* ✅ Fixed */}
                   </td>
                 </tr>
               ))}
